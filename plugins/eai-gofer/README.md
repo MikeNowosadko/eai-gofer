@@ -2,17 +2,15 @@
 
 Version: 3.4.0
 
-This package is the portable Claude, Codex, and Copilot workflow layer for
-public Gofer. It is released beside the VS Code extension, but it does not
-replace the VSIX UI, status views, updater, or language-server features.
+This package is the portable Claude, Codex, and Copilot workflow layer for public Gofer. It is released beside the VS Code extension, but it does not replace the VSIX UI, status views, updater, or language-server features.
 
 ## Distribution Modes
 
-| Surface            | Marketplace / published mode                                                                                                                                          | Local release-test mode                                                                                      |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| Claude Code        | `claude plugin marketplace add eai-tools/eai-gofer --scope user` then `claude plugin install eai-gofer@eai-gofer --scope user`                                        | Unzip this release to `~/plugins/eai-gofer`, then install `eai-gofer@eai-gofer-local`                        |
-| Codex              | Public marketplace publishing is prepared by `.codex-plugin/plugin.json`; local/import is the supported test path until external marketplace publication is available | Add `~/plugins/eai-gofer` through Codex local marketplace/import and keep the stable path unchanged          |
-| GitHub Copilot CLI | `copilot plugin marketplace add eai-tools/eai-gofer` then `copilot plugin install eai-gofer@eai-gofer`                                                                | `copilot plugin marketplace add ~/plugins/eai-gofer` then `copilot plugin install eai-gofer@eai-gofer-local` |
+| Surface | Marketplace / published mode | Local release-test mode |
+| ------- | ---------------------------- | ----------------------- |
+| Claude Code | `claude plugin marketplace add eai-tools/eai-gofer --scope user` then `claude plugin install eai-gofer@eai-gofer --scope user` | Unzip this release to `~/plugins/eai-gofer`, then install `eai-gofer@eai-gofer-local` |
+| Codex | Public marketplace publishing is prepared by `.codex-plugin/plugin.json`; local/import is the supported test path until external marketplace publication is available | Add `~/plugins/eai-gofer` through Codex local marketplace/import and keep the stable path unchanged |
+| GitHub Copilot CLI | `copilot plugin marketplace add eai-tools/eai-gofer` then `copilot plugin install eai-gofer@eai-gofer` | `copilot plugin marketplace add ~/plugins/eai-gofer` then `copilot plugin install eai-gofer@eai-gofer-local` |
 
 ## Install Or Update Locally
 
@@ -22,8 +20,7 @@ Keep the local install path stable:
 ~/plugins/eai-gofer
 ```
 
-Download this release asset, remove the old folder, unzip the package into
-`~/plugins`, then reload Codex, Claude Code, or Copilot CLI.
+Download this release asset, remove the old folder, unzip the package into `~/plugins`, then reload Codex, Claude Code, or Copilot CLI.
 
 ```bash
 gh release download v3.4.0 \
@@ -61,8 +58,7 @@ claude plugin install eai-gofer@eai-gofer-local --scope user
 
 ## Copilot CLI
 
-Register the unzipped folder as a local marketplace, then install from that
-marketplace:
+Register the unzipped folder as a local marketplace, then install from that marketplace:
 
 ```bash
 copilot plugin marketplace add ~/plugins/eai-gofer

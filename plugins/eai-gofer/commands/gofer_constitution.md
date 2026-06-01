@@ -22,7 +22,7 @@ when updating:
 1. **Source-of-truth (FR-001)**: All stage commands derive from canonical files
    at `.specify/commands/<stage>.md` — YAML frontmatter (name, description ≤140
    chars, surfaces, args) plus Markdown body. The generator at
-   `.specify/scripts/node/generate-commands.mjs` emits to every CLI surface
+   `${CLAUDE_PLUGIN_ROOT}/.specify/scripts/node/generate-commands.mjs` emits to every CLI surface
    (`.claude/commands/`, `extension/resources/copilot-prompts/`,
    `.github/prompts/`, `.gemini/commands/gofer/`, `.agents/skills/`, and the
    legacy compatibility mirror `.system/skills/`). Hand-edits on emitted files
@@ -30,15 +30,15 @@ when updating:
    source-of-truth.**
 
 2. **Codex distribution path (FR-010)**: Codex discovers skills at
-   `.agents/skills/` (one folder per skill: `.agents/skills/<stage>/SKILL.md`).
-   This is NOT the same as `.claude/skills/`, and it is the only repo-local path
-   Codex should rely on for normal Gofer installs. The constitution MUST capture
-   that distinction explicitly so future authors do not conflate the two paths
-   or recreate duplicate global Gofer bundles. The official Codex disable knob
-   is a per-skill `[[skills.config]]` entry with a
-   `path = "/full/path/to/skill"` plus `enabled = false` in
-   `~/.codex/config.toml`; there is no global skill-budget percentage key
-   (FR-011).
+   `.agents/skills/` (one folder per skill:
+   `.agents/skills/<stage>/SKILL.md`). This is NOT the same as
+   `.claude/skills/`, and it is the only repo-local path Codex should rely on
+   for normal Gofer installs. The constitution MUST capture that distinction
+   explicitly so future authors do not conflate the two paths or recreate
+   duplicate global Gofer bundles. The official Codex disable knob is a
+   per-skill `[[skills.config]]` entry with a `path = "/full/path/to/skill"`
+   plus `enabled = false` in `~/.codex/config.toml`; there is no global
+   skill-budget percentage key (FR-011).
 
 When updating the constitution, ensure both sections survive the edit pass.
 
@@ -527,7 +527,7 @@ When learnings emerge from feature work:
 ## Observability Logging
 
 ```bash
-.specify/scripts/bash/log-stage.sh gofer_constitution --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh gofer_constitution --complete --tokens [N] --compactions [N]
 ```
 
 ---

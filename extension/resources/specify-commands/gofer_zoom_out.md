@@ -14,6 +14,9 @@ surfaces:
   - agents-skills
   - system-skills
 ---
+---
+description: "Show how the current feature connects to broader system boundaries."
+---
 
 # Gofer Zoom Out
 

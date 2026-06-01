@@ -44,7 +44,7 @@ If these don't exist, prompt user to run `/1_gofer_research` first.
 Before starting specification, assess context window health:
 
 ```bash
-.specify/scripts/bash/check-context-health.sh
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-context-health.sh
 ```
 
 - If **< 50%**: Proceed normally
@@ -58,7 +58,7 @@ Before starting specification, assess context window health:
 1. **Run setup script**:
 
    ```bash
-   .specify/scripts/bash/check-prerequisites.sh --json --paths-only
+   ${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-prerequisites.sh --json --paths-only
    ```
 
    Parse JSON for FEATURE_DIR. Use `--paths-only` because specification runs
@@ -70,7 +70,7 @@ Before starting specification, assess context window health:
    - Note whether discovery.md exists
    - Note whether proposal-review.md exists
 
-3. **Note template path**: `.specify/templates/spec-template.md`
+3. **Note template path**: `${CLAUDE_PLUGIN_ROOT}/.specify/templates/spec-template.md`
 
 4. **Check for discovery.md**:
 
@@ -148,7 +148,7 @@ Feature directory: {FEATURE_DIR}
 Read these files for full context:
 - {FEATURE_DIR}/research.md — Codebase analysis, integration points, patterns, constraints
 - {FEATURE_DIR}/proposal-review.md — Approved business scenario, architecture direction, options, overrides
-- .specify/templates/spec-template.md — Template structure to follow
+- ${CLAUDE_PLUGIN_ROOT}/.specify/templates/spec-template.md — Template structure to follow
 - {FEATURE_DIR}/discovery.md — Business discovery findings (read if exists, skip if not)
 - {FEATURE_DIR}/journeys/base-journey.md — AI-augmented four-step application journey (read if exists, skip if not)
 - {FEATURE_DIR}/ui-preview-brief.md — UI-first preview brief for app delivery (read if exists, skip if not)
@@ -403,7 +403,7 @@ Generate 5 implementation options spanning the efficiency→innovation spectrum.
 
 ### Load Option Templates
 
-Read `.specify/templates/sequence-diagrams/option-spectrum.yaml` for option
+Read `${CLAUDE_PLUGIN_ROOT}/.specify/templates/sequence-diagrams/option-spectrum.yaml` for option
 definitions:
 
 - Option 1: Minimal (95% efficiency, 10% innovation)
@@ -665,7 +665,7 @@ For EnterpriseAI public-facing work, the contract pack must also separate:
 At stage completion, log metrics:
 
 ```bash
-.specify/scripts/bash/log-stage.sh 2_specify --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 2_specify --complete --tokens [N] --compactions [N]
 ```
 
 Logs to: `.specify/logs/pipeline.jsonl`

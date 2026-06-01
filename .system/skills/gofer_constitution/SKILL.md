@@ -3,10 +3,6 @@ name: gofer_constitution
 description: "Create or update project constitution with coding principles and guidelines."
 ---
 
----
-description:
-  Create or update project constitution with coding principles and guidelines
----
 
 # Gofer Constitution
 
@@ -27,7 +23,7 @@ when updating:
 1. **Source-of-truth (FR-001)**: All stage commands derive from canonical files
    at `.specify/commands/<stage>.md` — YAML frontmatter (name, description ≤140
    chars, surfaces, args) plus Markdown body. The generator at
-   `.specify/scripts/node/generate-commands.mjs` emits to every CLI surface
+   `${CLAUDE_PLUGIN_ROOT}/.specify/scripts/node/generate-commands.mjs` emits to every CLI surface
    (`.claude/commands/`, `extension/resources/copilot-prompts/`,
    `.github/prompts/`, `.gemini/commands/gofer/`, `.agents/skills/`, and the
    legacy compatibility mirror `.system/skills/`). Hand-edits on emitted files
@@ -532,7 +528,7 @@ When learnings emerge from feature work:
 ## Observability Logging
 
 ```bash
-.specify/scripts/bash/log-stage.sh gofer_constitution --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh gofer_constitution --complete --tokens [N] --compactions [N]
 ```
 
 ---

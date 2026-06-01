@@ -1,3 +1,7 @@
+---
+description: "Set the assistant personality for this Gofer session: friendly, pragmatic, or none (default)."
+---
+
 # Gofer Personality
 
 Set the assistant personality for the current Gofer session. The chosen preset

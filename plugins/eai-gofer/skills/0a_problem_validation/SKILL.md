@@ -1,15 +1,6 @@
 ---
 name: 0a_problem_validation
-description:
-  'Validate the business problem using 5 Whys root-cause analysis and
-  stakeholder mapping.'
----
-
----
-
-description: Validate business problem using 5 Whys analysis, stakeholder impact
-mapping, and market landscape research before any solution design
-
+description: "Validate the business problem using 5 Whys root-cause analysis and stakeholder mapping."
 ---
 
 # Gofer Problem Validation
@@ -47,7 +38,7 @@ This stage sits BEFORE `/1_gofer_research` in the pipeline. Your job is to:
 ## Step 0: Context Health Check
 
 ```bash
-.specify/scripts/bash/check-context-health.sh
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-context-health.sh
 ```
 
 - If **< 50%**: Proceed normally
@@ -79,7 +70,7 @@ solve?"
 Once you have the problem statement:
 
 1. **Generate a short name** (2-4 words) for the feature
-2. Run `.specify/scripts/bash/create-new-feature.sh --json "$DESCRIPTION"` with
+2. Run `${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/create-new-feature.sh --json "$DESCRIPTION"` with
    `--short-name "your-short-name"` to create the feature directory
 3. Parse JSON output for FEATURE_DIR and BRANCH_NAME
 
@@ -216,7 +207,7 @@ Display the impact assessment:
 ## Step 7: Generate Problem Brief
 
 Write to `{FEATURE_DIR}/problem-brief.md` using the template at
-`.specify/templates/problem-brief-template.md`.
+`${CLAUDE_PLUGIN_ROOT}/.specify/templates/problem-brief-template.md`.
 
 Populate with:
 
@@ -232,7 +223,7 @@ Populate with:
 ## Step 8: Generate Initial Assumptions Register
 
 Write to `{FEATURE_DIR}/assumptions.md` using the template at
-`.specify/templates/assumptions-template.md`.
+`${CLAUDE_PLUGIN_ROOT}/.specify/templates/assumptions-template.md`.
 
 Extract assumptions from:
 
@@ -319,7 +310,7 @@ Present alternatives and let user decide whether to proceed or stop.
 ## Step 10: Observability Logging
 
 ```bash
-.specify/scripts/bash/log-stage.sh 0a_problem_validation --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 0a_problem_validation --complete --tokens [N] --compactions [N]
 ```
 
 ---

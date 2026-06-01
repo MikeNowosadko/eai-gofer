@@ -1,3 +1,6 @@
+---
+description: "Guide a red-green-refactor loop tied to spec acceptance criteria."
+---
 
 # Gofer TDD
 

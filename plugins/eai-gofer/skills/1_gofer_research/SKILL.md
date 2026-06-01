@@ -1,13 +1,7 @@
 ---
 name: 1_gofer_research
-description:
-  'Research codebase, CLI integrations, and technology landscape for the target
-  feature.'
+description: "Research codebase, CLI integrations, and technology landscape for the target feature."
 ---
-
----
-
-## description: Deep codebase and technology research for feature implementation
 
 # Gofer Research
 
@@ -38,8 +32,7 @@ This is the **first stage** of the unified Gofer pipeline. Your job is to:
 
 - `.specify/specs/{feature}/research.md`
 - `.specify/specs/{feature}/proposal-review.md`
-- `.specify/specs/{feature}/journeys/base-journey.md` (application delivery
-  default)
+- `.specify/specs/{feature}/journeys/base-journey.md` (application delivery default)
 - `.specify/specs/{feature}/ui-preview-brief.md` (application delivery default)
 - `.specify/specs/{feature}/context-bundle.md` (EnterpriseAI default)
 - `.specify/specs/{feature}/reuse-scan.md` (EnterpriseAI default)
@@ -51,7 +44,7 @@ This is the **first stage** of the unified Gofer pipeline. Your job is to:
 Before starting research, assess context window health:
 
 ```bash
-.specify/scripts/bash/check-context-health.sh
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-context-health.sh
 ```
 
 - If **< 50%**: Proceed normally
@@ -77,8 +70,8 @@ If discovery.md exists:
    - Target Users → Research UX patterns appropriate for these users
    - Value Proposition → Research metrics and measurement approaches
    - Competitive Analysis → If researched, focus on differentiation
-   - Application Classification → Determine whether a four-step AI-augmented app
-     journey is required
+   - Application Classification → Determine whether a four-step AI-augmented
+     app journey is required
    - AI-Augmented Journey → If app delivery, preserve the four-step-or-fewer
      journey as the scope spine for research
    - Shared numbered-stage contract → if non-app, preserve the current shared
@@ -112,7 +105,7 @@ If no feature description provided in $ARGUMENTS:
 Once you have the feature description:
 
 1. **Generate a short name** (2-4 words) for the feature
-2. Run `.specify/scripts/bash/create-new-feature.sh --json "$DESCRIPTION"` with
+2. Run `${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/create-new-feature.sh --json "$DESCRIPTION"` with
    `--short-name "your-short-name"` to create the feature directory
 3. Parse JSON output for FEATURE_DIR and BRANCH_NAME
 
@@ -275,9 +268,9 @@ the standard profile, generate:
    - Feature summary and approved business scenario.
    - Application classification: app delivery or non-app work, with rationale.
    - Four-step-or-fewer AI-augmented journey summary when app delivery applies.
-   - AI-readable blocks bridge summary: external/internal/hybrid profile choice,
-     package lane, coupling status, public-readiness target, and block porting
-     posture.
+   - AI-readable blocks bridge summary: external/internal/hybrid profile
+     choice, package lane, coupling status, public-readiness target, and block
+     porting posture.
    - Relevant existing specs, code paths, platform references, and API surfaces.
    - EnterpriseAI object types, tenant assumptions, deployment target, and
      validation criteria.
@@ -304,10 +297,10 @@ the standard profile, generate:
      patterns the preview should use before any create-new UI concept is
      considered.
    - Block catalog evidence: run `eai --describe`, `eai blocks list`,
-     `eai blocks describe <id>` for each candidate, and `eai resources schema`;
-     record stable block IDs, required resources, data/action bindings,
-     Storybook story IDs, theme override points, package lane, coupling status,
-     and any custom-block exception that needs approval.
+     `eai blocks describe <id>` for each candidate, and
+     `eai resources schema`; record stable block IDs, required resources,
+     data/action bindings, Storybook story IDs, theme override points, package
+     lane, coupling status, and any custom-block exception that needs approval.
    - Block porting and DAISY decoupling evidence: identify whether each selected
      block is reused as-is, ported into a package lane, or blocked by DAISY
      coupling; define the adapter/resource-schema boundary for any decoupling
@@ -315,8 +308,8 @@ the standard profile, generate:
    - Public-readiness evidence: for external or hybrid profiles, capture package
      exports, consumer-facing constraints, accessibility/theming expectations,
      and what still prevents public consumption.
-   - Branding inputs: whether client styling, logos, colors, copy tone, or other
-     corporate-brand artifacts must be applied.
+   - Branding inputs: whether client styling, logos, colors, copy tone, or
+     other corporate-brand artifacts must be applied.
    - Preview validation plan: what screenshot, browser-render, or
      Playwright-style self-review evidence must exist before Gofer presents the
      preview to the stakeholder.
@@ -386,7 +379,7 @@ Run two sub-agents concurrently:
    - Inputs:
      - `<feature_dir>/research.md` (working draft)
      - `<feature_dir>/discovery.md` (if present)
-     - Template: `.specify/templates/visuals/c4-context-template.md`
+     - Template: `${CLAUDE_PLUGIN_ROOT}/.specify/templates/visuals/c4-context-template.md`
    - Output: `<feature_dir>/visuals/c4-context.md`
    - Required: Mermaid `C4Context` block with named external systems and at
      least one Person; plain-language preamble ≥30 ≤200 words.
@@ -394,7 +387,7 @@ Run two sub-agents concurrently:
 2. **`visual-heatmap-writer`** (Capability heatmap)
    - Inputs:
      - `<feature_dir>/research.md` (working draft)
-     - Template: `.specify/templates/visuals/capability-heatmap-template.md`
+     - Template: `${CLAUDE_PLUGIN_ROOT}/.specify/templates/visuals/capability-heatmap-template.md`
    - Output: `<feature_dir>/visuals/capability-heatmap.md`
    - Required: Mermaid `quadrantChart` placing each capability on maturity ×
      strategic-value axes plus tabular complement listing touched / extended /
@@ -453,16 +446,14 @@ status: complete
 - **Relevant Specs**: [Existing specs to carry forward]
 - **Relevant Code Paths**: [Files/directories and why they matter]
 - **EnterpriseAI Object Types**: [Known or candidate object types]
-- **Tenant and Deployment Assumptions**: [Tenant, identity, runtime, target
-  environment]
-- **Validation Criteria**: [Business, security, data, architecture, and
-  operational checks]
+- **Tenant and Deployment Assumptions**: [Tenant, identity, runtime, target environment]
+- **Validation Criteria**: [Business, security, data, architecture, and operational checks]
 
 ## Reuse-Before-Create Scan
 
-| Candidate                              | Existing Evidence   | Decision                | Rationale | Owner   |
-| -------------------------------------- | ------------------- | ----------------------- | --------- | ------- |
-| [Object type/API/workflow/module/spec] | [Path or reference] | Reuse/Extend/Create New | [Why]     | [Owner] |
+| Candidate | Existing Evidence | Decision | Rationale | Owner |
+| --------- | ----------------- | -------- | --------- | ----- |
+| [Object type/API/workflow/module/spec] | [Path or reference] | Reuse/Extend/Create New | [Why] | [Owner] |
 
 ## Business Scenario Analysis
 
@@ -782,7 +773,7 @@ echo "Generating $VARIANT_COUNT industry variants"
 
 ### Load Industry Templates
 
-Read `.specify/templates/journey/industry-variants.yaml` for industry-specific
+Read `${CLAUDE_PLUGIN_ROOT}/.specify/templates/journey/industry-variants.yaml` for industry-specific
 patterns.
 
 ### Generate Variants
@@ -890,7 +881,7 @@ Skip variant generation if:
 At stage completion, log metrics:
 
 ```bash
-.specify/scripts/bash/log-stage.sh 1_research --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 1_research --complete --tokens [N] --compactions [N]
 ```
 
 This tracks:

@@ -1,13 +1,7 @@
 ---
 name: 7_gofer_save
-description:
-  'Save session state and create a handoff checkpoint for resumption in a new
-  context.'
+description: "Save session state and create a handoff checkpoint for resumption in a new context."
 ---
-
----
-
-## description: Save session progress with comprehensive checkpoint for resumption
 
 # Gofer Save
 
@@ -40,7 +34,7 @@ You **MUST** consider the user input before proceeding (if not empty).
 Run context health check periodically during long sessions:
 
 ```bash
-.specify/scripts/bash/check-context-health.sh --json
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-context-health.sh --json
 ```
 
 | Status   | Token Usage | Action                                  |
@@ -59,7 +53,7 @@ Effective context for Claude is ~60-120k tokens, not the advertised 200k.
 ### 1.1 Context Window Health
 
 ```bash
-.specify/scripts/bash/check-context-health.sh
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-context-health.sh
 ```
 
 Document current context usage - this informs how much detail to include in
@@ -280,7 +274,7 @@ Progress saved at task [TaskID]. Resume with `/8_gofer_resume`.
 ## Step 6: Observability Logging
 
 ```bash
-.specify/scripts/bash/log-stage.sh 7_save --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 7_save --complete --tokens [N] --compactions [N]
 ```
 
 ---

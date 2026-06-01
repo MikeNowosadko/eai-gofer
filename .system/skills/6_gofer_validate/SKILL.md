@@ -3,11 +3,6 @@ name: 6_gofer_validate
 description: "Validate implemented work with evidence-backed scoring, blast-radius analysis, and engineering review."
 ---
 
----
-description:
-  Unified validation, blast-radius analysis, and engineering review (3 phases,
-  110-point rubric)
----
 
 # Gofer Validate
 
@@ -146,7 +141,7 @@ partial credit.
 Before starting validation, assess context window health:
 
 ```bash
-.specify/scripts/bash/check-context-health.sh
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-context-health.sh
 ```
 
 - If **< 50%**: Proceed normally
@@ -162,7 +157,7 @@ Validation loads all artifacts and spawns 6 agents — context pressure is high.
 1. **Run setup script**:
 
    ```bash
-   .specify/scripts/bash/check-prerequisites.sh --json --require-tasks
+   ${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-prerequisites.sh --json --require-tasks
    ```
 
    Parse JSON for FEATURE_DIR
@@ -1019,7 +1014,7 @@ Read validation council output from {FEATURE_DIR}/validation.md.
 Replace ONLY the topThreeRisks section with the council's top three risks.
 Preserve all other content byte-for-byte.
 
-Use the runPass2() helper at .specify/scripts/node/lib/visual-pass-pipeline.mjs
+Use the runPass2() helper at ${CLAUDE_PLUGIN_ROOT}/.specify/scripts/node/lib/visual-pass-pipeline.mjs
 which implements the surgical replacement (regex-bounded swap of the
 '## Top Three Risks' section + frontmatter pass: 1 -> 2 bump).
 
@@ -1027,7 +1022,7 @@ Return: absolute path of file written and the three risk strings used."
 ```
 
 The `runPass2()` function in
-`.specify/scripts/node/lib/visual-pass-pipeline.mjs` already implements the
+`${CLAUDE_PLUGIN_ROOT}/.specify/scripts/node/lib/visual-pass-pipeline.mjs` already implements the
 surgical replacement; the writer agent only needs to provide the three
 council-validated risk strings. This satisfies FR-016 (two-pass canvas refresh)
 and the locked decision recorded in `plan.md:912-919`.
@@ -1050,7 +1045,7 @@ Feature directory: {FEATURE_DIR}
 Spec: {FEATURE_DIR}/spec.md
 Validation council findings: {FEATURE_DIR}/validation-report.md (in-progress)
 Existing heatmap (pass-1): {FEATURE_DIR}/visuals/risk-heatmap.md
-Template: .specify/templates/visuals/risk-heatmap-template.md
+Template: ${CLAUDE_PLUGIN_ROOT}/.specify/templates/visuals/risk-heatmap-template.md
 
 Replace top-quadrant risks with the validation council's critical findings.
 Preserve pass-1 risks that did not surface in validation.
@@ -1994,7 +1989,7 @@ When council mode is enabled for `gofer_validate` stage:
 At stage completion, log metrics:
 
 ```bash
-.specify/scripts/bash/log-stage.sh 6_validate --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 6_validate --complete --tokens [N] --compactions [N]
 ```
 
 This also logs quality metrics (rubric scores, finding counts) to:

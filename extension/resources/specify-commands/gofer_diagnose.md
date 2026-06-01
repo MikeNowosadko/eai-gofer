@@ -14,6 +14,9 @@ surfaces:
   - agents-skills
   - system-skills
 ---
+---
+description: "Run a reproduce-minimize-instrument-fix loop for bugs and failing tests."
+---
 
 # Gofer Diagnose
 

@@ -1,8 +1,6 @@
 ---
 name: gofer:plan
-description:
-  'Toggle plan mode in the active CLI session for the next user prompt;
-  non-pipeline control command.'
+description: "Toggle plan mode in the active CLI session for the next user prompt; non-pipeline control command."
 title: 'Gofer Plan Mode Toggle'
 category: control
 surfaces:
@@ -15,6 +13,9 @@ surfaces:
   - github-prompts
   - agents-skills
   - system-skills
+---
+---
+description: "Toggle plan mode in the active CLI session for the next user prompt; non-pipeline control command."
 ---
 
 # Gofer Plan Mode Toggle

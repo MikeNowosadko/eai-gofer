@@ -3,9 +3,6 @@ name: 5_gofer_implement
 description: "Execute all tasks from tasks.md phase by phase with feedback loops and engineering review."
 ---
 
----
-description: Execute tasks from tasks.md to implement the feature
----
 
 # Gofer Implement
 
@@ -51,7 +48,7 @@ If missing, prompt user to run the prerequisite stage.
 Before starting implementation, assess context window health:
 
 ```bash
-.specify/scripts/bash/check-context-health.sh
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-context-health.sh
 ```
 
 **Evaluate thresholds (2025-2026 research-based)**:
@@ -96,7 +93,7 @@ During implementation, use these techniques to preserve context quality:
 1. **Run setup script**:
 
    ```bash
-   .specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks
+   ${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks
    ```
 
    Parse JSON for FEATURE_DIR and task list
@@ -295,7 +292,7 @@ line you write.
 8. **RUN FEEDBACK LOOP** (see below)
 9. After the task passes its feedback loop, immediately mark it complete in
    `tasks.md` using `gofer_update_task_status <spec-id> <task-id> completed` or
-   `.specify/scripts/bash/mark-task-complete.sh <feature-dir> <task-id>`
+   `${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/mark-task-complete.sh <feature-dir> <task-id>`
 10. Report progress
 
 ### Feedback Loop (After EACH Task)
@@ -657,7 +654,7 @@ separation from `tasks.md`:
 At stage completion, log metrics:
 
 ```bash
-.specify/scripts/bash/log-stage.sh 5_implement --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 5_implement --complete --tokens [N] --compactions [N]
 ```
 
 Logs to: `.specify/logs/pipeline.jsonl`

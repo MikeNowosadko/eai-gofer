@@ -1,15 +1,6 @@
 ---
 name: 3_gofer_plan
-description:
-  'Create a detailed technical implementation plan with architecture, data
-  model, and contracts.'
----
-
----
-
-description: Generate technical implementation plan with architecture and
-contracts
-
+description: "Create a detailed technical implementation plan with architecture, data model, and contracts."
 ---
 
 # Gofer Plan
@@ -47,10 +38,10 @@ If missing, prompt user to run the prerequisite stage.
 6. Spec coverage validation
 7. Output: `plan.md`, `data-model.md`, `contracts/`, `quickstart.md`
 8. EnterpriseAI default output: task-ready references to `context-bundle.md`,
-   `contract-pack.md`, `reuse-scan.md`, `audit-history.md`, and for app delivery
-   `ui-review-log.md`, `ui-approval.md`, and `service-fit-matrix.md`, including
-   public-readiness, block-porting, DAISY decoupling, Storybook, theme override,
-   and package-profile decisions
+   `contract-pack.md`, `reuse-scan.md`, `audit-history.md`, and for app
+   delivery `ui-review-log.md`, `ui-approval.md`, and
+   `service-fit-matrix.md`, including public-readiness, block-porting, DAISY
+   decoupling, Storybook, theme override, and package-profile decisions
 
 ---
 
@@ -59,7 +50,7 @@ If missing, prompt user to run the prerequisite stage.
 Before starting planning, assess context window health:
 
 ```bash
-.specify/scripts/bash/check-context-health.sh
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-context-health.sh
 ```
 
 - If **< 50%**: Proceed normally
@@ -75,7 +66,7 @@ Planning dispatches multiple agents — keep main context lightweight.
 1. **Run setup script**:
 
    ```bash
-   .specify/scripts/bash/setup-plan.sh --json
+   ${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/setup-plan.sh --json
    ```
 
    Parse JSON for FEATURE_DIR, FEATURE_SPEC, BRANCH
@@ -84,14 +75,14 @@ Planning dispatches multiple agents — keep main context lightweight.
    directly):
    - Note feature name from FEATURE_DIR
    - Note whether `discovery.md`, `.specify/memory/constitution.md` exist
-   - Note whether `ui-preview-brief.md`, `ui-review-log.md`, `ui-approval.md`,
-     and `service-fit-matrix.md` exist
+   - Note whether `ui-preview-brief.md`, `ui-review-log.md`,
+     `ui-approval.md`, and `service-fit-matrix.md` exist
    - Note external/internal/hybrid profile choice, package lane, coupling
      status, Storybook story IDs, theme override points, custom-block
      exceptions, and public-readiness status when app delivery applies
    - Note whether `{FEATURE_DIR}/sequence-diagrams/selected-option.md` exists
 
-3. **Note template path**: `.specify/templates/plan-template.md`
+3. **Note template path**: `${CLAUDE_PLUGIN_ROOT}/.specify/templates/plan-template.md`
 
 ---
 
@@ -117,7 +108,7 @@ Read these files for full context:
 - {FEATURE_DIR}/ui-review-log.md — app-delivery preview iteration history (read if exists, skip if not)
 - {FEATURE_DIR}/ui-approval.md — app-delivery approval state (read if exists, skip if not)
 - {FEATURE_DIR}/service-fit-matrix.md — app-delivery capability selections (read if exists, skip if not)
-- .specify/templates/plan-template.md — Plan template structure
+- ${CLAUDE_PLUGIN_ROOT}/.specify/templates/plan-template.md — Plan template structure
 - .specify/memory/constitution.md — Project principles (read if exists)
 - {FEATURE_DIR}/sequence-diagrams/selected-option.md — Selected approach (read if exists)
 
@@ -475,7 +466,7 @@ Incorporate judge recommendations into the plan before proceeding to validation.
 Run the agent context update script:
 
 ```bash
-.specify/scripts/bash/update-agent-context.sh claude
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/update-agent-context.sh claude
 ```
 
 This updates AI agent context files with new technology from this plan.
@@ -572,9 +563,9 @@ When the workflow profile is `enterpriseai`, `plan.md` MUST capture:
 
 1. **EAI CLI version pin** — record the installed `eai` version as a
    `major.minor` pin (for example `2.0`). The plan stage resolves the local
-   version via `eai --version`, strips the patch component, and writes the pin
-   to the `EnterpriseAI Profile Metadata` block of `plan-template.md` so every
-   downstream task is reproducible. Plans MUST apply
+   version via `eai --version`, strips the patch component, and writes the
+   pin to the `EnterpriseAI Profile Metadata` block of `plan-template.md` so
+   every downstream task is reproducible. Plans MUST apply
    `pin guidance to `major.minor`` and never to a specific patch release.
 2. **Deployment convention** — reference
    `.specify/references/eai/deployment-repo.md` for the canonical deployment
@@ -599,9 +590,9 @@ When the workflow profile is `enterpriseai`, `plan.md` MUST capture:
    the preview loop before plan/tasks are considered complete. The plan MUST:
    - keep the first preview constrained to Vertical Template blocks unless an
      approved extension is recorded
-   - cite `eai blocks describe <id>` evidence for every selected block ID, plus
-     the ResourceAPI/Object Type fields from `eai resources schema` that feed
-     each block
+   - cite `eai blocks describe <id>` evidence for every selected block ID,
+     plus the ResourceAPI/Object Type fields from `eai resources schema` that
+     feed each block
    - record override points for theme tokens, `presentationConfig`, copy,
      data/action bindings, and client extension blocks
    - capture whether client branding/logos are in scope
@@ -614,22 +605,20 @@ When the workflow profile is `enterpriseai`, `plan.md` MUST capture:
    before tasks are treated as complete. The matrix must distinguish:
    - accessible now
    - purchasable but unavailable now
-   - unavailable without new platform work The plan must source this evidence
-     from `eai --describe`, `eai whoami`, `eai tenant select`,
-     `eai resources schema`, `eai verify calls --format json`,
-     `eai workflow readiness <workflow-key>`,
-     `eai workflow status <workflow-key>`,
-     `eai workflow request <workflow-key>`,
-     `eai provision entra --rotate-secret`, or documented equivalent public
-     platform evidence.
-8. **Reuse-before-create decision log** — reference
-   `{FEATURE_DIR}/reuse-scan.md` for every new or extended EnterpriseAI object
-   type, API/event, workflow, or module.
+   - unavailable without new platform work
+   The plan must source this evidence from `eai --describe`, `eai whoami`,
+   `eai tenant select`, `eai resources schema`, `eai verify calls --format
+   json`, `eai workflow readiness <workflow-key>`, `eai workflow status
+   <workflow-key>`, `eai workflow request <workflow-key>`, `eai provision
+   entra --rotate-secret`, or documented equivalent public platform evidence.
+8. **Reuse-before-create decision log** — reference `{FEATURE_DIR}/reuse-scan.md`
+   for every new or extended EnterpriseAI object type, API/event, workflow, or
+   module.
 9. **Audit history seed** — create or update `{FEATURE_DIR}/audit-history.md`
    with stable finding IDs, decision exceptions, owner, expiry, and review
    cadence so validation can track recurring issues.
-10. **Public/private knowledge split** — identify which implementation facts are
-    safe for public docs, Gofer guidance, EAI CLI help, or Vertical Template
+10. **Public/private knowledge split** — identify which implementation facts
+    are safe for public docs, Gofer guidance, EAI CLI help, or Vertical Template
     comments, and which facts are internal-only. Plans must express blocked
     states as public-safe actions (`operator_required`, `upgrade_required`, or
     documented support URL) rather than exposing private service topology.
@@ -665,7 +654,7 @@ and standard profile outputs remain unchanged.
 At stage completion, log metrics:
 
 ```bash
-.specify/scripts/bash/log-stage.sh 3_plan --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 3_plan --complete --tokens [N] --compactions [N]
 ```
 
 Logs to: `.specify/logs/pipeline.jsonl`

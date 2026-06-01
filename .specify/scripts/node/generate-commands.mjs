@@ -161,7 +161,10 @@ async function emitClaude(stages, root, dryRun) {
       console.log(`[dry-run] claude: would write ${outPath}`);
     } else {
       await ensureDir(outDir);
-      await fs.writeFile(outPath, stage.body, 'utf8');
+      // FR-6: repoint shipped-asset refs to ${CLAUDE_PLUGIN_ROOT}. Keep the
+      // embedded body frontmatter intact (do NOT strip it here) — Claude reads
+      // it as the command's frontmatter.
+      await fs.writeFile(outPath, rewriteShippedAssetPaths(stage.body), 'utf8');
       await removeLegacyGeneratedPath(outPath, legacyPath);
       console.log(`claude: wrote ${outPath}`);
     }
@@ -336,6 +339,22 @@ function splitMarkdownFrontmatter(content) {
 }
 
 /**
+ * Rewrites plugin-shipped asset references (.specify/scripts, .specify/templates)
+ * to ${CLAUDE_PLUGIN_ROOT}-relative paths so they resolve from the installed
+ * plugin location. Workspace-runtime paths (.specify/specs, /memory, /logs) are
+ * intentionally left relative to the user's working directory. Idempotent — a
+ * reference already prefixed with ${CLAUDE_PLUGIN_ROOT}/ is not rewritten again.
+ * @param {string} text
+ * @returns {string}
+ */
+function rewriteShippedAssetPaths(text) {
+  return String(text).replace(
+    /(?<!\$\{CLAUDE_PLUGIN_ROOT\}\/)\.specify\/(scripts|templates)\//g,
+    '${CLAUDE_PLUGIN_ROOT}/.specify/$1/'
+  );
+}
+
+/**
  * @param {string} content
  * @param {'copilot'} toPlatform
  * @returns {string}
@@ -419,7 +438,12 @@ function readString(value) {
  * @returns {string}
  */
 function buildSkillContent(stageName, description, body) {
-  return `---\nname: ${stageName}\ndescription: "${description}"\n---\n\n${body}`;
+  // FR-2: strip any leading frontmatter already present in the body (pipeline
+  // command bodies carry an embedded ---description--- block meant for the
+  // Claude command surface) so the SKILL.md has exactly ONE frontmatter block.
+  // FR-6: repoint shipped-asset refs to ${CLAUDE_PLUGIN_ROOT}.
+  const { body: strippedBody } = splitMarkdownFrontmatter(body);
+  return `---\nname: ${stageName}\ndescription: "${description}"\n---\n\n${rewriteShippedAssetPaths(strippedBody)}`;
 }
 
 /**

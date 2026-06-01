@@ -1,6 +1,5 @@
 {
   "name": "eai-gofer",
-  "description": "Public EAI Gofer plugin marketplace for agentic spec-driven delivery workflows.",
   "owner": {
     "name": "EnterpriseAI",
     "url": "https://github.com/eai-tools/eai-gofer"
@@ -23,7 +22,14 @@
       "repository": "https://github.com/eai-tools/eai-gofer",
       "license": "SEE LICENSE IN LICENSE",
       "category": "Coding",
-      "tags": ["eai-gofer", "gofer", "claude", "codex", "copilot", "spec-driven-development"]
+      "tags": [
+        "eai-gofer",
+        "gofer",
+        "claude",
+        "codex",
+        "copilot",
+        "spec-driven-development"
+      ]
     }
   ]
 }

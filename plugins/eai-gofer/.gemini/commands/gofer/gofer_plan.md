@@ -1,3 +1,7 @@
+---
+description: "Toggle plan mode in the active CLI session for the next user prompt; non-pipeline control command."
+---
+
 # Gofer Plan Mode Toggle
 
 When invoked, this command signals the host CLI to enter plan mode for the next

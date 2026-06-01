@@ -14,6 +14,9 @@ surfaces:
   - agents-skills
   - system-skills
 ---
+---
+description: "Extract domain terminology into a canonical feature glossary."
+---
 
 # Gofer Vocabulary
 

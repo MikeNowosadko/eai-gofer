@@ -156,8 +156,6 @@ function buildPluginManifest(version, paths = {}) {
     repository: REPOSITORY_URL,
     license: 'SEE LICENSE IN LICENSE',
     keywords: ['eai-gofer', 'gofer', 'claude-code', 'codex', 'copilot', 'spec-driven-development'],
-    category: 'Coding',
-    tags: ['eai-gofer', 'gofer', 'agentic-coding'],
     skills: paths.skills ?? './skills/',
     agents: paths.agents ?? './agents/',
     commands: paths.commands ?? './commands/',
@@ -178,8 +176,6 @@ function buildClaudeManifest(version, paths = {}) {
     repository: REPOSITORY_URL,
     license: 'SEE LICENSE IN LICENSE',
     keywords: ['eai-gofer', 'gofer', 'claude-code', 'spec-driven-development'],
-    category: 'Coding',
-    tags: ['eai-gofer', 'gofer', 'agentic-coding'],
     skills: paths.skills ?? './skills/',
   };
 }
@@ -187,10 +183,13 @@ function buildClaudeManifest(version, paths = {}) {
 function buildLocalMarketplace(version) {
   return {
     name: 'eai-gofer-local',
-    description: 'Local EAI Gofer plugin marketplace for agentic spec-driven delivery workflows.',
     owner: {
       name: 'EnterpriseAI',
       url: REPOSITORY_URL,
+    },
+    metadata: {
+      description: 'Local EAI Gofer plugin marketplace for agentic spec-driven delivery workflows.',
+      version,
     },
     plugins: [
       {
@@ -215,7 +214,6 @@ function buildLocalMarketplace(version) {
 function buildRepoMarketplace(version) {
   return {
     name: 'eai-gofer',
-    description: 'Public EAI Gofer plugin marketplace for agentic spec-driven delivery workflows.',
     owner: {
       name: 'EnterpriseAI',
       url: REPOSITORY_URL,
@@ -277,8 +275,29 @@ function buildUmbrellaSkill(version, stages) {
   return `---\nname: eai-gofer\ndescription: "Run the public Gofer spec-driven delivery workflow in Claude, Codex, or Copilot."\n---\n\n# EAI Gofer\n\nVersion: ${version}\n\nUse this skill when the user asks to run, install, update, or understand Gofer without the VS Code extension UI.\n\n## Pipeline Skills\n\n${stageList}\n\n## Stable Local Install Path\n\nInstall or update this plugin by replacing the stable local folder:\n\n\`\`\`text\n~/plugins/eai-gofer\n\`\`\`\n\nThe Codex local marketplace entry should continue to point at \`./plugins/eai-gofer\`.\n`;
 }
 
+/**
+ * Repoints plugin-shipped asset refs (.specify/scripts, .specify/templates) to
+ * ${CLAUDE_PLUGIN_ROOT} so they resolve from the installed plugin. Workspace
+ * runtime paths (.specify/specs, /memory, /logs) stay relative. Idempotent.
+ */
+function rewriteShippedAssetPaths(text) {
+  return String(text).replace(
+    /(?<!\$\{CLAUDE_PLUGIN_ROOT\}\/)\.specify\/(scripts|templates)\//g,
+    '${CLAUDE_PLUGIN_ROOT}/.specify/$1/'
+  );
+}
+
+/** Removes a single leading ---...--- frontmatter block from a body string. */
+function stripLeadingFrontmatter(body) {
+  const match = body.match(/^---\n[\s\S]*?\n---\n?/);
+  return match ? body.slice(match[0].length) : body;
+}
+
 function buildStageSkill(stage) {
-  return `---\nname: ${stage.frontmatter.name}\ndescription: ${yamlString(stage.frontmatter.description)}\n---\n\n${stage.body.trim()}\n`;
+  // FR-2: strip the embedded body frontmatter so the SKILL.md has exactly one
+  // frontmatter block. FR-6: repoint shipped-asset refs to ${CLAUDE_PLUGIN_ROOT}.
+  const body = rewriteShippedAssetPaths(stripLeadingFrontmatter(stage.body.trim()).trim());
+  return `---\nname: ${stage.frontmatter.name}\ndescription: ${yamlString(stage.frontmatter.description)}\n---\n\n${body}\n`;
 }
 
 function buildPluginReadme(version) {
@@ -392,6 +411,7 @@ async function writePluginFolder(pluginRoot, root, version, stages) {
   await writeText(path.join(pluginRoot, '.eai-gofer-plugin-version'), `${version}\n${GENERATED_MARKER}\n`);
 
   const copiedResources = [
+    'LICENSE',
     '.specify/commands',
     '.specify/templates',
     '.specify/scripts/bash',

@@ -45,7 +45,7 @@ If missing, prompt user to run the prerequisite stage.
 Before generating tasks, assess context window health:
 
 ```bash
-.specify/scripts/bash/check-context-health.sh
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-context-health.sh
 ```
 
 - If **< 50%**: Proceed normally
@@ -61,7 +61,7 @@ Task generation dispatches agents — keep main context lightweight.
 1. **Run setup script**:
 
    ```bash
-   .specify/scripts/bash/check-prerequisites.sh --json
+   ${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-prerequisites.sh --json
    ```
 
    Parse JSON for FEATURE_DIR, AVAILABLE_DOCS
@@ -70,7 +70,7 @@ Task generation dispatches agents — keep main context lightweight.
    directly):
    - Note feature name from FEATURE_DIR
    - Note which optional docs exist: data-model.md, contracts/, quickstart.md
-   - Note the tasks template path: `.specify/templates/tasks-template.md`
+   - Note the tasks template path: `${CLAUDE_PLUGIN_ROOT}/.specify/templates/tasks-template.md`
 
 ---
 
@@ -94,7 +94,7 @@ Read these files for full context:
 - {FEATURE_DIR}/data-model.md — Entity definitions (read if exists)
 - {FEATURE_DIR}/contracts/ — API contracts (read all .md files if exists)
 - {FEATURE_DIR}/research.md — Technology decisions (read if exists)
-- .specify/templates/tasks-template.md — Task template structure
+- ${CLAUDE_PLUGIN_ROOT}/.specify/templates/tasks-template.md — Task template structure
 
 Generate tasks.md organized by user story to enable independent implementation:
 
@@ -310,7 +310,7 @@ Include rollback notes in the task document's "Implementation Strategy" section.
 Run the issues generator:
 
 ```bash
-node .specify/scripts/node/generate-issues.js "$FEATURE_DIR"
+node ${CLAUDE_PLUGIN_ROOT}/.specify/scripts/node/generate-issues.js "$FEATURE_DIR"
 ```
 
 This creates `{FEATURE_DIR}/issues.md` with GitHub-ready issue definitions.
@@ -436,10 +436,10 @@ EnterpriseAI is the default profile. Standard profile task generation is used
 only when the user explicitly opts out.
 
 When the workflow profile is `enterpriseai` or no profile is specified,
-`tasks.md` MUST emit deployment tasks in the following ordered chain. Each task
-is independently runnable and the ordering enforces scaffold before deployment
-so that configuration and manifest artifacts exist before any deploy command
-runs.
+`tasks.md` MUST emit deployment
+tasks in the following ordered chain. Each task is independently runnable and
+the ordering enforces scaffold before deployment so that configuration and
+manifest artifacts exist before any deploy command runs.
 
 1. **Vertical Template scaffolding -> `eai init`**
    - Command: `eai init <app-name>`
@@ -460,9 +460,9 @@ The ordering above is non-negotiable: tasks.md MUST instruct the pipeline to sca
 For **application delivery**, task generation MUST treat the UI-first gate as a
 precondition to downstream implementation tasks:
 
-- If `{FEATURE_DIR}/ui-approval.md` does not exist or is not approved, emit only
-  the blocking preview/approval tasks needed to reach approval; do **not** emit
-  downstream implementation tasks as if the UI were already settled.
+- If `{FEATURE_DIR}/ui-approval.md` does not exist or is not approved, emit
+  only the blocking preview/approval tasks needed to reach approval; do **not**
+  emit downstream implementation tasks as if the UI were already settled.
 - If `{FEATURE_DIR}/service-fit-matrix.md` is missing or does not distinguish
   accessible now vs purchasable vs unavailable platform capabilities, emit a
   blocking service-fit task group before normal build tasks.
@@ -513,9 +513,9 @@ precondition to downstream implementation tasks:
   - update `ui-review-log.md`
   - block downstream work until `ui-approval.md` is approved
 - App-delivery service-fit tasks that update `service-fit-matrix.md` using
-  tenant-aware evidence from `eai --describe`, `eai whoami`,
-  `eai tenant select`, `eai resources schema`, `eai verify calls --format json`,
-  or equivalent approved platform evidence.
+  tenant-aware evidence from `eai --describe`, `eai whoami`, `eai tenant
+  select`, `eai resources schema`, `eai verify calls --format json`, or
+  equivalent approved platform evidence.
 - A scope-control task that checks whether any user-facing app process exceeds
   four steps and either combines/automates extra steps or records the approved
   exception and rationale.
@@ -550,7 +550,7 @@ platform owns persistence.
 At stage completion, log metrics:
 
 ```bash
-.specify/scripts/bash/log-stage.sh 4_tasks --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 4_tasks --complete --tokens [N] --compactions [N]
 ```
 
 Logs to: `.specify/logs/pipeline.jsonl`

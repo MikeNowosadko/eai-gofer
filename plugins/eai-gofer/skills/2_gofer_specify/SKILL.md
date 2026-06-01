@@ -1,13 +1,7 @@
 ---
 name: 2_gofer_specify
-description:
-  'Generate a feature specification from research findings and approved proposal
-  review.'
+description: "Generate a feature specification from research findings and approved proposal review."
 ---
-
----
-
-## description: Create feature specification informed by codebase research
 
 # Gofer Specify
 
@@ -51,7 +45,7 @@ If these don't exist, prompt user to run `/1_gofer_research` first.
 Before starting specification, assess context window health:
 
 ```bash
-.specify/scripts/bash/check-context-health.sh
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-context-health.sh
 ```
 
 - If **< 50%**: Proceed normally
@@ -65,7 +59,7 @@ Before starting specification, assess context window health:
 1. **Run setup script**:
 
    ```bash
-   .specify/scripts/bash/check-prerequisites.sh --json --paths-only
+   ${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-prerequisites.sh --json --paths-only
    ```
 
    Parse JSON for FEATURE_DIR. Use `--paths-only` because specification runs
@@ -77,7 +71,7 @@ Before starting specification, assess context window health:
    - Note whether discovery.md exists
    - Note whether proposal-review.md exists
 
-3. **Note template path**: `.specify/templates/spec-template.md`
+3. **Note template path**: `${CLAUDE_PLUGIN_ROOT}/.specify/templates/spec-template.md`
 
 4. **Check for discovery.md**:
 
@@ -155,7 +149,7 @@ Feature directory: {FEATURE_DIR}
 Read these files for full context:
 - {FEATURE_DIR}/research.md — Codebase analysis, integration points, patterns, constraints
 - {FEATURE_DIR}/proposal-review.md — Approved business scenario, architecture direction, options, overrides
-- .specify/templates/spec-template.md — Template structure to follow
+- ${CLAUDE_PLUGIN_ROOT}/.specify/templates/spec-template.md — Template structure to follow
 - {FEATURE_DIR}/discovery.md — Business discovery findings (read if exists, skip if not)
 - {FEATURE_DIR}/journeys/base-journey.md — AI-augmented four-step application journey (read if exists, skip if not)
 - {FEATURE_DIR}/ui-preview-brief.md — UI-first preview brief for app delivery (read if exists, skip if not)
@@ -410,7 +404,7 @@ Generate 5 implementation options spanning the efficiency→innovation spectrum.
 
 ### Load Option Templates
 
-Read `.specify/templates/sequence-diagrams/option-spectrum.yaml` for option
+Read `${CLAUDE_PLUGIN_ROOT}/.specify/templates/sequence-diagrams/option-spectrum.yaml` for option
 definitions:
 
 - Option 1: Minimal (95% efficiency, 10% innovation)
@@ -639,23 +633,23 @@ stage can bind implementation tasks directly to specification clauses.
 When EnterpriseAI is active or no profile is specified, generate
 `{FEATURE_DIR}/contract-pack.md` with these required sections:
 
-| Section                           | Required Content                                                                                                                                                                                               |
-| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Actors                            | Business users, administrators, approvers, external systems, support roles                                                                                                                                     |
-| Object Types                      | Reused, extended, and newly proposed EnterpriseAI object types with owners                                                                                                                                     |
-| Workflows and Journeys            | External user journeys and internal orchestration flows as separate views; app delivery must include the four-step-or-fewer AI-augmented journey                                                               |
-| UI Preview and Approval           | For app delivery: preview brief, Vertical Template constraints, branding inputs, preview validation evidence expectations, review-log requirements, approval gate rules; for non-app work: mark not applicable |
-| AI Assistance Contract            | Step goal, assistance mode, context used, generated output, user controls, confidence/evidence, audit trail, completion signal, and escalation for each app step                                               |
-| EnterpriseAI Service Fit          | For app delivery: desired capabilities, evidence source, accessible now vs purchasable vs unavailable classification, selected direction, and blocked-capability handling                                      |
-| Public Platform Boundary          | Public docs/help/CLI/PublicAPI behavior the builder may rely on; private platform details intentionally excluded; upgrade/operator-required paths expressed as product-safe user actions                       |
-| Permissions and Tenant Boundaries | Identity, authorization, policy, isolation, and tenant assumptions                                                                                                                                             |
-| APIs and Events                   | ResourceAPI surfaces, events, payload ownership, and contract-test hooks                                                                                                                                       |
-| Deployment and Runtime            | Environment, config, observability, rollback, and operating assumptions                                                                                                                                        |
-| Acceptance Tests                  | Business, security, data, architecture, operational, and regression checks                                                                                                                                     |
+| Section | Required Content |
+| ------- | ---------------- |
+| Actors | Business users, administrators, approvers, external systems, support roles |
+| Object Types | Reused, extended, and newly proposed EnterpriseAI object types with owners |
+| Workflows and Journeys | External user journeys and internal orchestration flows as separate views; app delivery must include the four-step-or-fewer AI-augmented journey |
+| UI Preview and Approval | For app delivery: preview brief, Vertical Template constraints, branding inputs, preview validation evidence expectations, review-log requirements, approval gate rules; for non-app work: mark not applicable |
+| AI Assistance Contract | Step goal, assistance mode, context used, generated output, user controls, confidence/evidence, audit trail, completion signal, and escalation for each app step |
+| EnterpriseAI Service Fit | For app delivery: desired capabilities, evidence source, accessible now vs purchasable vs unavailable classification, selected direction, and blocked-capability handling |
+| Public Platform Boundary | Public docs/help/CLI/PublicAPI behavior the builder may rely on; private platform details intentionally excluded; upgrade/operator-required paths expressed as product-safe user actions |
+| Permissions and Tenant Boundaries | Identity, authorization, policy, isolation, and tenant assumptions |
+| APIs and Events | ResourceAPI surfaces, events, payload ownership, and contract-test hooks |
+| Deployment and Runtime | Environment, config, observability, rollback, and operating assumptions |
+| Acceptance Tests | Business, security, data, architecture, operational, and regression checks |
 
 The contract pack must link every new object type/API/workflow back to
-`reuse-scan.md` and must flag any "create new" decision that lacks evidence. For
-EnterpriseAI public-facing work, the contract pack must also separate:
+`reuse-scan.md` and must flag any "create new" decision that lacks evidence.
+For EnterpriseAI public-facing work, the contract pack must also separate:
 
 - **Public builder knowledge**: EAI CLI commands, PublicAPI responses, template
   configuration, support documentation, and user-safe statuses such as
@@ -672,7 +666,7 @@ EnterpriseAI public-facing work, the contract pack must also separate:
 At stage completion, log metrics:
 
 ```bash
-.specify/scripts/bash/log-stage.sh 2_specify --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 2_specify --complete --tokens [N] --compactions [N]
 ```
 
 Logs to: `.specify/logs/pipeline.jsonl`
@@ -685,8 +679,8 @@ Logs to: `.specify/logs/pipeline.jsonl`
   is stabilized, run `gofer:vocabulary` inline and write
   `.specify/specs/{feature}/glossary.md` using the same artifact contract as the
   standalone helper.
-- If the operator explicitly requests the `spec-summary` selector after
-  `spec.md` is stabilized, run `gofer:spec-summary` inline and write
+- If the operator explicitly requests the `spec-summary` selector after `spec.md`
+  is stabilized, run `gofer:spec-summary` inline and write
   `.specify/specs/{feature}/spec-summary.md` using the same artifact contract as
   the standalone helper.
 - If `spec.md` is missing, continue the stage normally and report that the

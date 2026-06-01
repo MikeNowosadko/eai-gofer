@@ -547,7 +547,7 @@ If rate limited, implement exponential backoff and continue with available data.
 ## Observability Logging
 
 ```bash
-.specify/scripts/bash/log-stage.sh 10_cloud --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 10_cloud --complete --tokens [N] --compactions [N]
 ````
 
 ---

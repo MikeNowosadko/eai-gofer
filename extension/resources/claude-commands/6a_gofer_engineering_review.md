@@ -37,7 +37,7 @@ This command expects in `.specify/specs/{feature}/`:
 ### Step 1: Detect Whether Phase C Already Ran
 
 ```bash
-.specify/scripts/bash/check-prerequisites.sh --json --require-tasks
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-prerequisites.sh --json --require-tasks
 ```
 
 Parse JSON for `FEATURE_DIR`. Then:
@@ -118,7 +118,7 @@ preserved verbatim inside `/6_gofer_validate` Phase C.
 When this stub runs (either case), log:
 
 ```bash
-.specify/scripts/bash/log-stage.sh 6a_engineering_review --complete --note "stub-delegated-to-6"
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 6a_engineering_review --complete --note "stub-delegated-to-6"
 ```
 
 This keeps the stage-completion log contract unchanged for downstream tools that

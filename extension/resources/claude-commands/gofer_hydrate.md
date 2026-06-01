@@ -474,7 +474,7 @@ Before completing hydration:
 ## Observability Logging
 
 ```bash
-.specify/scripts/bash/log-stage.sh gofer_hydrate --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh gofer_hydrate --complete --tokens [N] --compactions [N]
 ```
 
 ---

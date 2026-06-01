@@ -1,8 +1,6 @@
 ---
 name: gofer:personality
-description:
-  'Set the assistant personality for this Gofer session: friendly, pragmatic, or
-  none (default).'
+description: "Set the assistant personality for this Gofer session: friendly, pragmatic, or none (default)."
 title: 'Gofer Personality'
 category: control
 surfaces:
@@ -21,6 +19,9 @@ args:
     enum: [friendly, pragmatic, none]
     default: none
     description: Personality preset to apply
+---
+---
+description: "Set the assistant personality for this Gofer session: friendly, pragmatic, or none (default)."
 ---
 
 # Gofer Personality

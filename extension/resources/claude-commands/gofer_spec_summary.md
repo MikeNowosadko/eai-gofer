@@ -1,3 +1,6 @@
+---
+description: "Generate a business-friendly summary of feature value and scope."
+---
 
 # Gofer Spec Summary
 

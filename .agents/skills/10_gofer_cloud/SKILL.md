@@ -3,10 +3,6 @@ name: 10_gofer_cloud
 description: "Deploy and configure the Gofer cloud integration for remote pipeline execution."
 ---
 
----
-description:
-  READ-ONLY cloud infrastructure analysis for Azure, AWS, GCP deployments
----
 
 # Gofer Cloud
 
@@ -552,7 +548,7 @@ If rate limited, implement exponential backoff and continue with available data.
 ## Observability Logging
 
 ```bash
-.specify/scripts/bash/log-stage.sh 10_cloud --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 10_cloud --complete --tokens [N] --compactions [N]
 ````
 
 ---

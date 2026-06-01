@@ -45,7 +45,7 @@ If missing, prompt user to run the prerequisite stage.
 Before generating tasks, assess context window health:
 
 ```bash
-.specify/scripts/bash/check-context-health.sh
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-context-health.sh
 ```
 
 - If **< 50%**: Proceed normally
@@ -61,7 +61,7 @@ Task generation dispatches agents — keep main context lightweight.
 1. **Run setup script**:
 
    ```bash
-   .specify/scripts/bash/check-prerequisites.sh --json
+   ${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-prerequisites.sh --json
    ```
 
    Parse JSON for FEATURE_DIR, AVAILABLE_DOCS
@@ -70,7 +70,7 @@ Task generation dispatches agents — keep main context lightweight.
    directly):
    - Note feature name from FEATURE_DIR
    - Note which optional docs exist: data-model.md, contracts/, quickstart.md
-   - Note the tasks template path: `.specify/templates/tasks-template.md`
+   - Note the tasks template path: `${CLAUDE_PLUGIN_ROOT}/.specify/templates/tasks-template.md`
 
 ---
 
@@ -94,7 +94,7 @@ Read these files for full context:
 - {FEATURE_DIR}/data-model.md — Entity definitions (read if exists)
 - {FEATURE_DIR}/contracts/ — API contracts (read all .md files if exists)
 - {FEATURE_DIR}/research.md — Technology decisions (read if exists)
-- .specify/templates/tasks-template.md — Task template structure
+- ${CLAUDE_PLUGIN_ROOT}/.specify/templates/tasks-template.md — Task template structure
 
 Generate tasks.md organized by user story to enable independent implementation:
 
@@ -310,7 +310,7 @@ Include rollback notes in the task document's "Implementation Strategy" section.
 Run the issues generator:
 
 ```bash
-node .specify/scripts/node/generate-issues.js "$FEATURE_DIR"
+node ${CLAUDE_PLUGIN_ROOT}/.specify/scripts/node/generate-issues.js "$FEATURE_DIR"
 ```
 
 This creates `{FEATURE_DIR}/issues.md` with GitHub-ready issue definitions.
@@ -550,7 +550,7 @@ platform owns persistence.
 At stage completion, log metrics:
 
 ```bash
-.specify/scripts/bash/log-stage.sh 4_tasks --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 4_tasks --complete --tokens [N] --compactions [N]
 ```
 
 Logs to: `.specify/logs/pipeline.jsonl`

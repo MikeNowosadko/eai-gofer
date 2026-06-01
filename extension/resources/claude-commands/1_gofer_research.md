@@ -43,7 +43,7 @@ This is the **first stage** of the unified Gofer pipeline. Your job is to:
 Before starting research, assess context window health:
 
 ```bash
-.specify/scripts/bash/check-context-health.sh
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-context-health.sh
 ```
 
 - If **< 50%**: Proceed normally
@@ -104,7 +104,7 @@ If no feature description provided in $ARGUMENTS:
 Once you have the feature description:
 
 1. **Generate a short name** (2-4 words) for the feature
-2. Run `.specify/scripts/bash/create-new-feature.sh --json "$DESCRIPTION"` with
+2. Run `${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/create-new-feature.sh --json "$DESCRIPTION"` with
    `--short-name "your-short-name"` to create the feature directory
 3. Parse JSON output for FEATURE_DIR and BRANCH_NAME
 
@@ -378,7 +378,7 @@ Run two sub-agents concurrently:
    - Inputs:
      - `<feature_dir>/research.md` (working draft)
      - `<feature_dir>/discovery.md` (if present)
-     - Template: `.specify/templates/visuals/c4-context-template.md`
+     - Template: `${CLAUDE_PLUGIN_ROOT}/.specify/templates/visuals/c4-context-template.md`
    - Output: `<feature_dir>/visuals/c4-context.md`
    - Required: Mermaid `C4Context` block with named external systems and at
      least one Person; plain-language preamble ≥30 ≤200 words.
@@ -386,7 +386,7 @@ Run two sub-agents concurrently:
 2. **`visual-heatmap-writer`** (Capability heatmap)
    - Inputs:
      - `<feature_dir>/research.md` (working draft)
-     - Template: `.specify/templates/visuals/capability-heatmap-template.md`
+     - Template: `${CLAUDE_PLUGIN_ROOT}/.specify/templates/visuals/capability-heatmap-template.md`
    - Output: `<feature_dir>/visuals/capability-heatmap.md`
    - Required: Mermaid `quadrantChart` placing each capability on maturity ×
      strategic-value axes plus tabular complement listing touched / extended /
@@ -772,7 +772,7 @@ echo "Generating $VARIANT_COUNT industry variants"
 
 ### Load Industry Templates
 
-Read `.specify/templates/journey/industry-variants.yaml` for industry-specific
+Read `${CLAUDE_PLUGIN_ROOT}/.specify/templates/journey/industry-variants.yaml` for industry-specific
 patterns.
 
 ### Generate Variants
@@ -880,7 +880,7 @@ Skip variant generation if:
 At stage completion, log metrics:
 
 ```bash
-.specify/scripts/bash/log-stage.sh 1_research --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 1_research --complete --tokens [N] --compactions [N]
 ```
 
 This tracks:

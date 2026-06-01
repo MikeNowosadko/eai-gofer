@@ -1,3 +1,6 @@
+---
+description: "Open a side conversation in the active CLI without disturbing the main pipeline state; resumable."
+---
 
 # Gofer Side Conversation
 

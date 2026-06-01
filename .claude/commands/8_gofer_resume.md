@@ -368,7 +368,7 @@ Would you like me to:
 ## Observability Logging
 
 ```bash
-.specify/scripts/bash/log-stage.sh 8_resume --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 8_resume --complete --tokens [N] --compactions [N]
 ```
 
 ---

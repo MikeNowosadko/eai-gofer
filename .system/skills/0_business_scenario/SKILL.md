@@ -3,9 +3,6 @@ name: 0_business_scenario
 description: "Define the business problem and scenario for Gofer to analyse and solve."
 ---
 
----
-description: Triage business scenario and orchestrate the unified Gofer pipeline
----
 
 # Gofer Orchestrator
 
@@ -643,7 +640,7 @@ Before file-existence checks, read `pipeline-state.json` for authoritative
 resume information:
 
 ```bash
-.specify/scripts/bash/pipeline-state.sh read --json
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/pipeline-state.sh read --json
 ````
 
 If `pipeline-state.json` exists and `status` is `in_progress`, resume from
@@ -904,5 +901,5 @@ platform experience.
 Log orchestrator routing:
 
 ```bash
-.specify/scripts/bash/log-stage.sh 0_orchestrator --route [command] --feature [name]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 0_orchestrator --route [command] --feature [name]
 ```

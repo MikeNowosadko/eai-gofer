@@ -50,7 +50,7 @@ If missing, prompt user to run the prerequisite stage.
 Before starting planning, assess context window health:
 
 ```bash
-.specify/scripts/bash/check-context-health.sh
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-context-health.sh
 ```
 
 - If **< 50%**: Proceed normally
@@ -66,7 +66,7 @@ Planning dispatches multiple agents — keep main context lightweight.
 1. **Run setup script**:
 
    ```bash
-   .specify/scripts/bash/setup-plan.sh --json
+   ${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/setup-plan.sh --json
    ```
 
    Parse JSON for FEATURE_DIR, FEATURE_SPEC, BRANCH
@@ -82,7 +82,7 @@ Planning dispatches multiple agents — keep main context lightweight.
      exceptions, and public-readiness status when app delivery applies
    - Note whether `{FEATURE_DIR}/sequence-diagrams/selected-option.md` exists
 
-3. **Note template path**: `.specify/templates/plan-template.md`
+3. **Note template path**: `${CLAUDE_PLUGIN_ROOT}/.specify/templates/plan-template.md`
 
 ---
 
@@ -108,7 +108,7 @@ Read these files for full context:
 - {FEATURE_DIR}/ui-review-log.md — app-delivery preview iteration history (read if exists, skip if not)
 - {FEATURE_DIR}/ui-approval.md — app-delivery approval state (read if exists, skip if not)
 - {FEATURE_DIR}/service-fit-matrix.md — app-delivery capability selections (read if exists, skip if not)
-- .specify/templates/plan-template.md — Plan template structure
+- ${CLAUDE_PLUGIN_ROOT}/.specify/templates/plan-template.md — Plan template structure
 - .specify/memory/constitution.md — Project principles (read if exists)
 - {FEATURE_DIR}/sequence-diagrams/selected-option.md — Selected approach (read if exists)
 
@@ -466,7 +466,7 @@ Incorporate judge recommendations into the plan before proceeding to validation.
 Run the agent context update script:
 
 ```bash
-.specify/scripts/bash/update-agent-context.sh claude
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/update-agent-context.sh claude
 ```
 
 This updates AI agent context files with new technology from this plan.
@@ -654,7 +654,7 @@ and standard profile outputs remain unchanged.
 At stage completion, log metrics:
 
 ```bash
-.specify/scripts/bash/log-stage.sh 3_plan --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 3_plan --complete --tokens [N] --compactions [N]
 ```
 
 Logs to: `.specify/logs/pipeline.jsonl`

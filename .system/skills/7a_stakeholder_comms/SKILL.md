@@ -3,11 +3,6 @@ name: 7a_stakeholder_comms
 description: "Generate stakeholder-facing communications: release notes, demo scripts, and change briefs."
 ---
 
----
-description:
-  Generate stakeholder communications package including release notes, demo
-  script, change management brief, and success metrics
----
 
 # Gofer Stakeholder Communications
 
@@ -54,7 +49,7 @@ Instead, inform the user that validation must pass first.
 ## Step 0: Context Health Check
 
 ```bash
-.specify/scripts/bash/check-context-health.sh
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-context-health.sh
 ```
 
 - If **< 50%**: Proceed normally
@@ -68,7 +63,7 @@ Instead, inform the user that validation must pass first.
 1. **Run setup script**:
 
    ```bash
-   .specify/scripts/bash/check-prerequisites.sh --json --require-tasks
+   ${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-prerequisites.sh --json --require-tasks
    ```
 
    Parse JSON for FEATURE_DIR
@@ -146,7 +141,7 @@ Return structured report (<2000 tokens)."
 ## Step 3: Generate Stakeholder Communications
 
 Write to `{FEATURE_DIR}/stakeholder-comms.md` using the template at
-`.specify/templates/stakeholder-comms-template.md`.
+`${CLAUDE_PLUGIN_ROOT}/.specify/templates/stakeholder-comms-template.md`.
 
 Populate with comms-writer agent findings. Ensure:
 
@@ -161,7 +156,7 @@ Populate with comms-writer agent findings. Ensure:
 ## Step 4: Generate Business Metrics Dashboard
 
 Write to `{FEATURE_DIR}/business-metrics.md` using the template at
-`.specify/templates/business-metrics-template.md`.
+`${CLAUDE_PLUGIN_ROOT}/.specify/templates/business-metrics-template.md`.
 
 Populate with business-metrics-analyzer agent findings.
 
@@ -314,7 +309,7 @@ Every section title above (`Problem Statement`,
 `EnterpriseAI Solution Overview`, `Architecture Diagram Reference`,
 `Demo Script Summary`, `Success Metrics`) is mandatory in both the generated
 `presentation.marp.md` and the corresponding
-`.specify/templates/stakeholder-comms-template.md`.
+`${CLAUDE_PLUGIN_ROOT}/.specify/templates/stakeholder-comms-template.md`.
 
 ### Persona Marp Deck Pack
 
@@ -362,7 +357,7 @@ heatmap → bounded-context → ERD → risk-heatmap → ROI projection) and ski
 artifacts that were not generated (FR-028, NFR-011, T138).
 
 ```bash
-node .specify/scripts/node/lib/assemble-stakeholder-pack.mjs $FEATURE_DIR
+node ${CLAUDE_PLUGIN_ROOT}/.specify/scripts/node/lib/assemble-stakeholder-pack.mjs $FEATURE_DIR
 ```
 
 The assembler writes `{FEATURE_DIR}/stakeholder-pack.md` and prints which
@@ -374,7 +369,7 @@ visual generators if needed.
 ## Step 8: Observability Logging
 
 ```bash
-.specify/scripts/bash/log-stage.sh 7a_stakeholder_comms --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 7a_stakeholder_comms --complete --tokens [N] --compactions [N]
 ```
 
 ---

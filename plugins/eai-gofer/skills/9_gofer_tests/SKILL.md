@@ -1,15 +1,6 @@
 ---
 name: 9_gofer_tests
-description:
-  'Generate comprehensive test suites from four testing perspectives for a
-  target component.'
----
-
----
-
-description: Define acceptance test cases using DSL approach before or during
-implementation
-
+description: "Generate comprehensive test suites from four testing perspectives for a target component."
 ---
 
 # Gofer Tests
@@ -69,7 +60,7 @@ in the codebase.
 ## Step 1: Load Feature Context
 
 ```bash
-.specify/scripts/bash/check-prerequisites.sh --json
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-prerequisites.sh --json
 ```
 
 Parse JSON for FEATURE_DIR, then load:
@@ -479,7 +470,7 @@ After each task in `/5_gofer_implement`:
 ## Observability Logging
 
 ```bash
-.specify/scripts/bash/log-stage.sh 9_tests --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 9_tests --complete --tokens [N] --compactions [N]
 ```
 
 ---

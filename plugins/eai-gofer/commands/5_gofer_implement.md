@@ -46,7 +46,7 @@ If missing, prompt user to run the prerequisite stage.
 Before starting implementation, assess context window health:
 
 ```bash
-.specify/scripts/bash/check-context-health.sh
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-context-health.sh
 ```
 
 **Evaluate thresholds (2025-2026 research-based)**:
@@ -91,7 +91,7 @@ During implementation, use these techniques to preserve context quality:
 1. **Run setup script**:
 
    ```bash
-   .specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks
+   ${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks
    ```
 
    Parse JSON for FEATURE_DIR and task list
@@ -290,7 +290,7 @@ line you write.
 8. **RUN FEEDBACK LOOP** (see below)
 9. After the task passes its feedback loop, immediately mark it complete in
    `tasks.md` using `gofer_update_task_status <spec-id> <task-id> completed` or
-   `.specify/scripts/bash/mark-task-complete.sh <feature-dir> <task-id>`
+   `${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/mark-task-complete.sh <feature-dir> <task-id>`
 10. Report progress
 
 ### Feedback Loop (After EACH Task)
@@ -573,13 +573,13 @@ when the user explicitly opts out.
 
 Before any deployment task emitted by `/4_gofer_tasks` completes, this stage
 MUST execute deployment preflight checks (manifest/config gate). A task that
-invokes `eai deploy` is not marked complete until all of the following files are
-present at the workspace root and pass their readiness checks:
+invokes `eai deploy` is not marked complete until all of the following files
+are present at the workspace root and pass their readiness checks:
 
-| Required File  | Purpose                                             |
-| -------------- | --------------------------------------------------- |
-| `manifest.yml` | Vertical application manifest (from `eai init`)     |
-| `config.json`  | Runtime configuration bundle (environment-specific) |
+| Required File  | Purpose                                                 |
+| -------------- | ------------------------------------------------------- |
+| `manifest.yml` | Vertical application manifest (from `eai init`) |
+| `config.json`  | Runtime configuration bundle (environment-specific)     |
 
 ### Gate behaviour
 
@@ -609,9 +609,9 @@ separation from `tasks.md`:
   be justified in the approved plan and approval artifacts.
 - Before implementing UI, run or inspect `eai --describe`, `eai blocks list`,
   `eai blocks describe <id>` for every selected block, and
-  `eai resources schema`. Implementation notes must cite the block IDs, required
-  resources, bindings, package lane, coupling status, Storybook story IDs, theme
-  override points, and any approved custom-block exception.
+  `eai resources schema`. Implementation notes must cite the block IDs,
+  required resources, bindings, package lane, coupling status, Storybook story
+  IDs, theme override points, and any approved custom-block exception.
 - Reject unknown component names during implementation unless `tasks.md` and
   `ui-approval.md` explicitly authorize a custom extension block and manifest.
 - Treat package-profile, block-porting, DAISY decoupling, and public-readiness
@@ -619,8 +619,8 @@ separation from `tasks.md`:
   profile work is incomplete until package exports, Storybook stories, theme
   overrides, consumer smoke checks, and unsupported custom-block exceptions are
   resolved or explicitly deferred by approval artifacts.
-- Do not let public or hybrid package lanes import DAISY internals directly. Use
-  `eai resources schema`, an adapter boundary, or an approved internal-only
+- Do not let public or hybrid package lanes import DAISY internals directly.
+  Use `eai resources schema`, an adapter boundary, or an approved internal-only
   exception; record the coupling status in implementation notes and
   `ui-review-log.md`.
 - For application delivery, implement the four-step-or-fewer AI-augmented
@@ -632,9 +632,9 @@ separation from `tasks.md`:
   self-review evidence and append it to `{FEATURE_DIR}/ui-review-log.md`.
 - For application delivery, after UI approval and before treating platform
   selection as complete, update `{FEATURE_DIR}/service-fit-matrix.md` with
-  tenant-aware evidence from `eai --describe`, `eai whoami`,
-  `eai tenant select`, `eai resources schema`, `eai verify calls --format json`,
-  or equivalent approved platform evidence. The matrix must distinguish
+  tenant-aware evidence from `eai --describe`, `eai whoami`, `eai tenant
+  select`, `eai resources schema`, `eai verify calls --format json`, or
+  equivalent approved platform evidence. The matrix must distinguish
   accessible now, purchasable but unavailable now, and unavailable without new
   platform work.
 - For non-app work, skip the preview, approval, branding, and service-fit gates
@@ -652,7 +652,7 @@ separation from `tasks.md`:
 At stage completion, log metrics:
 
 ```bash
-.specify/scripts/bash/log-stage.sh 5_implement --complete --tokens [N] --compactions [N]
+${CLAUDE_PLUGIN_ROOT}/.specify/scripts/bash/log-stage.sh 5_implement --complete --tokens [N] --compactions [N]
 ```
 
 Logs to: `.specify/logs/pipeline.jsonl`
@@ -681,8 +681,8 @@ Logs to: `.specify/logs/pipeline.jsonl`
 - If the operator explicitly requests `diagnose` and `spec.md` is present, run
   `gofer:diagnose` inline; bug context, failing output, or equivalent failure
   evidence may supplement the investigation. Write
-  `.specify/specs/{feature}/diagnose-report.md` using the same artifact contract
-  as the standalone helper.
+  `.specify/specs/{feature}/diagnose-report.md` using the same artifact
+  contract as the standalone helper.
 - If the required inputs are missing, continue the stage normally and report
   that the helper was not run.
 - These selectors are optional and do not change stage progress, routing, or
